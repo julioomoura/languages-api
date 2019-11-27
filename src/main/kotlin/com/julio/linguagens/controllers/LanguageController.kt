@@ -34,7 +34,7 @@ class LanguageController (val languageService: LanguageService){
         return ResponseEntity(languages, HttpStatus.OK)
     }
 
-    @PutMapping("/{id")
+    @PutMapping("/{id}")
     fun updateLanguage(
         @RequestBody language: Language,
         @PathVariable id: Long
