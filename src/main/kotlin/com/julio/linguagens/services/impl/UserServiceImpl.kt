@@ -1,5 +1,6 @@
 package com.julio.linguagens.services.impl
 
+import com.julio.linguagens.models.Language
 import com.julio.linguagens.models.User
 import com.julio.linguagens.repositories.UserRepository
 import com.julio.linguagens.services.UserService
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserServiceImpl(
-        val userRepository: UserRepository
+    val userRepository: UserRepository
 ) : UserService{
     override fun createUser(user: User) = userRepository.save(user)
 
@@ -33,4 +34,11 @@ class UserServiceImpl(
         })
     }
 
+    override fun createUserLanguages(id: Long, languages: List<Language>): User {
+        val user = this.findUserById(id)
+        languages.forEach { language ->
+            user.languages.add(language)
+        }
+        return userRepository.save(user)
+    }
 }

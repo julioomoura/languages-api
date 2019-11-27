@@ -12,9 +12,10 @@ import javax.persistence.Table
 data class Language (
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        var id: Long,
-        @Column
-        var name: String,
-        @Column
-        var createdBy: String
-)
+        var id: Long? = null
+) {
+    @Column(unique = true)
+    var name: String? = null
+    @Column
+    var createdBy: String? = null
+}

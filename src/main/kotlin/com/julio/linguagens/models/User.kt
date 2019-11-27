@@ -1,6 +1,7 @@
 package com.julio.linguagens.models
 
 import javax.persistence.*
+import kotlin.random.Random
 
 @Entity(name = "user")
 data class User (
@@ -10,5 +11,5 @@ data class User (
         @Column
         var name: String,
         @OneToMany
-        var languages: MutableList<Language>? = null
+        var languages: MutableList<Language> = mutableListOf()
 )
