@@ -13,7 +13,7 @@ data class Language (
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long,
-        @Column
+        @Column(unique = true)
         var name: String,
         @Column
         var createdBy: String
