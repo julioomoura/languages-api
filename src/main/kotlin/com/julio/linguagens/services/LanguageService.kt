@@ -12,7 +12,7 @@ interface LanguageService {
     fun createLanguage(language: Language): Language
     fun deleteLanguage(id: Long)
     fun getLanguages(): MutableIterable<Language>
-    fun getLanguageByName()
+    fun getLanguageByName(name: String, createdBy: String): Language
 
     @Throws(NotFoundException::class)
     fun getLanguage(id: Long): Language

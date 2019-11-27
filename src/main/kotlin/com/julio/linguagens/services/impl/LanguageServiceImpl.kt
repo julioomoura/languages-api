@@ -24,6 +24,19 @@ class LanguageServiceImpl (val languageRepository: LanguageRepository) : Languag
 
     override fun getLanguages(): MutableIterable<Language> = languageRepository.findAll()
 
+    @Throws(NotFoundException::class)
+    override fun getLanguageByName(name: String, createdBy: String): Language {
+        val language = languageRepository.findByName(name)
+        val newLanguage = Language().apply {
+            this.createdBy = createdBy
+            this.name = name
+        }
+        return when (language.isPresent) {
+            true -> language.get()
+            else -> this.createLanguage(newLanguage)
+        }
+    }
+
     override fun updateLanguage(id: Long, language: Language): Language {
         val languageFromDB = this.getLanguage(id)
         languageFromDB.apply {

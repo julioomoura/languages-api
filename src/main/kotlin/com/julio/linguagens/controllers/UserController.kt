@@ -1,6 +1,8 @@
 package com.julio.linguagens.controllers
 
+import com.julio.linguagens.models.Language
 import com.julio.linguagens.models.User
+import com.julio.linguagens.services.LanguageService
 import com.julio.linguagens.services.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -8,7 +10,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/users")
-class UserController (val userService: UserService) {
+class UserController (
+        val userService: UserService,
+        val languageService: LanguageService
+) {
 
     @GetMapping
     fun getUsers(): ResponseEntity<MutableIterable<User>> {
@@ -34,7 +39,7 @@ class UserController (val userService: UserService) {
         return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     fun updateUser(
             @PathVariable
             id: Long,
@@ -43,5 +48,22 @@ class UserController (val userService: UserService) {
     ): ResponseEntity<User> {
         val updatedUser = userService.updateUser(id, user)
         return ResponseEntity(updatedUser, HttpStatus.OK)
+    }
+
+    @PostMapping("/{id}/languages")
+    fun createUserLanguages(
+        @PathVariable
+        id: Long,
+        @RequestBody
+        languages: List<Language>
+    ): ResponseEntity<User> {
+        val user = userService.findUserById(id)
+        val languagesFromDB = languages.map{
+            languageService.getLanguageByName(it.name!!, it.createdBy!!)
+        }
+        val createdLanguages = userService.createUserLanguages(id, languagesFromDB)
+        return ResponseEntity(createdLanguages, HttpStatus.OK)
+
+
     }
 }
