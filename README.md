@@ -1,6 +1,5 @@
 # Languages API
 
-## Overview
 This is a project to learn about Restful API's, Spring Boot, Kotlin and, maybe, Spring Security
 
 ### Clone
