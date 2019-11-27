@@ -10,5 +10,5 @@ data class User (
         @Column
         var name: String,
         @OneToMany
-        var languages: List<Language>
+        var languages: MutableList<Language>? = null
 )

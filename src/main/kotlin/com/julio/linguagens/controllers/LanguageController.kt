@@ -39,7 +39,7 @@ class LanguageController (val languageService: LanguageService){
         @RequestBody language: Language,
         @PathVariable id: Long
     ): ResponseEntity<Language> {
-        val language = languageService.updateLanguage(id, language)
-        return ResponseEntity(language, HttpStatus.OK)
+        val updatedLanguage = languageService.updateLanguage(id, language)
+        return ResponseEntity(updatedLanguage, HttpStatus.OK)
     }
 }
