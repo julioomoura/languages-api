@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface LanguageRepository : CrudRepository <Language, Long>{
+    fun findByName(name: String): Language
 }
